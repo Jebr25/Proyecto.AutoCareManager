@@ -9,18 +9,28 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var _config = builder.Configuration;
 var _cnx = _config.GetConnectionString("DevConnection");
-builder.Services.AddDbContext<AutocaremanagerContext>(options => {options.UseSqlServer(_cnx);});
+builder.Services.AddDbContext<AutocaremanagerContext>(options => { options.UseSqlServer(_cnx); });
 
 //-------------------------------------------------------------------------------------//
 
 // Agregar Interfaz de Articulo
 builder.Services.AddTransient<IArticuloRepository, ArticuloRepository>();
+
 // Agregar Interfaz de Usuario
 builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddTransient<IUsuarioService, UsuarioService>();
-//Agregar Interfaz de Taller
 
-//Agregar Interfaz de Empleado
+// Agregar Interfaz de FacturaVenta
+builder.Services.AddScoped<IFacturaVentaRepository, FacturaVentaRepository>();
+builder.Services.AddScoped<IFacturaVentaService, FacturaVentaService>();
+
+// Agregar Interfaz de Vehiculo
+builder.Services.AddScoped<IVehiculoRepository, VehiculoRepository>();
+builder.Services.AddScoped<IVehiculoService, VehiculoService>();
+
+// Agregar Interfaz de Taller
+
+// Agregar Interfaz de Empleado
 
 //-------------------------------------------------------------------------------------//
 
