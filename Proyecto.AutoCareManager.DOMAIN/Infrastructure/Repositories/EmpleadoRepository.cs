@@ -1,11 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-<<<<<<< HEAD
-<<<<<<< HEAD
 using Proyecto.AutoCareManager.DOMAIN.Core.DTO;
-=======
->>>>>>> 8229652052ff8ae0b330b3b9f6efdeb93f60b8d0
-=======
->>>>>>> 8229652052ff8ae0b330b3b9f6efdeb93f60b8d0
 using Proyecto.AutoCareManager.DOMAIN.Core.Entities;
 using Proyecto.AutoCareManager.DOMAIN.Core.Interfaces;
 using Proyecto.AutoCareManager.DOMAIN.Infrastructure.Data;
@@ -19,8 +13,6 @@ namespace Proyecto.AutoCareManager.DOMAIN.Infrastructure.Repositories
 {
     public class EmpleadoRepository : IEmpleadoRepository
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
         private readonly AutocaremanagerContext _dbContext;
 
         public EmpleadoRepository(AutocaremanagerContext dbContext)
@@ -97,7 +89,7 @@ namespace Proyecto.AutoCareManager.DOMAIN.Infrastructure.Repositories
         }
 
         //------------------------Insert() CON DTO-----------------------
-        public async Task<bool> Insert(EmpleadoDTO empleadoDTO)
+        public async Task<bool> InsertDTO(EmpleadoDTO empleadoDTO)
         {
             var empleado = new TbEmpleado
             {
@@ -117,9 +109,11 @@ namespace Proyecto.AutoCareManager.DOMAIN.Infrastructure.Repositories
             return rows > 0;
         }
 
-        public async Task<bool> Update(EmpleadoActualizarDTO empleadoActualizarDTO)
+        //------------------------Update By Id() CON DTO-----------------------
+        public async Task<bool> UpdateByIdDTO(int id, EmpleadoActualizarDTO empleadoActualizarDTO)
         {
-            var existingEmpleado = await _dbContext.TbEmpleado.FindAsync(empleadoActualizarDTO.CodEmpleado);
+            //var existingEmpleado = await _dbContext.TbEmpleado.FindAsync(empleadoActualizarDTO.CodEmpleado);
+            var existingEmpleado = await _dbContext.TbEmpleado.FirstOrDefaultAsync(u => u.CodEmpleado == id);
 
             if (existingEmpleado == null)
             {
@@ -167,7 +161,7 @@ namespace Proyecto.AutoCareManager.DOMAIN.Infrastructure.Repositories
             return rows > 0;
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> DeleteById(int id)
         {
             var empleado = await _dbContext.TbEmpleado.Where(x => x.CodEmpleado == id).FirstOrDefaultAsync();
 
@@ -181,58 +175,4 @@ namespace Proyecto.AutoCareManager.DOMAIN.Infrastructure.Repositories
 
     }
 }
-=======
-=======
->>>>>>> 8229652052ff8ae0b330b3b9f6efdeb93f60b8d0
-        private readonly AutocaremanagerContext _context;
 
-        public EmpleadoRepository(AutocaremanagerContext context)
-        {
-            _context = context;
-        }
-        public async Task<IEnumerable<TbEmpleado>> GetEmpleados()
-        {
-            var users = await _context.TbEmpleado.ToListAsync();
-            return users;
-
-        }
-
-        public async Task<TbEmpleado> GetEmpleados(int CodEmpleado)
-        {
-            //return _context.User.Find(id);
-
-            return await _context.TbEmpleado.Where(x => x.CodEmpleado == CodEmpleado).FirstOrDefaultAsync();
-
-        }
-
-        public async Task<bool> Insert(TbEmpleado empleado)
-        {
-            await _context.TbEmpleado.AddAsync(empleado);
-            var countRows = await _context.SaveChangesAsync();
-            return (countRows > 0);
-        }
-
-        public async Task<bool> Update(TbEmpleado empleado)
-        {
-            _context.TbEmpleado.Update(empleado);
-            var countRows = await _context.SaveChangesAsync();
-            return (countRows > 0);
-        }
-
-        public async Task<bool> Delete(int CodEmpleado)
-        {
-            var user = await _context.TbEmpleado.FindAsync(CodEmpleado);
-            return (user != null);
-        }
-
-
-
-    }
-
-
-}
-
-<<<<<<< HEAD
->>>>>>> 8229652052ff8ae0b330b3b9f6efdeb93f60b8d0
-=======
->>>>>>> 8229652052ff8ae0b330b3b9f6efdeb93f60b8d0

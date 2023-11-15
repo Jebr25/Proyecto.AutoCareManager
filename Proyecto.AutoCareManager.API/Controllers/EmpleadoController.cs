@@ -1,19 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-<<<<<<< HEAD
-<<<<<<< HEAD
 using Proyecto.AutoCareManager.DOMAIN.Core.DTO;
 using Proyecto.AutoCareManager.DOMAIN.Core.Entities;
 using Proyecto.AutoCareManager.DOMAIN.Core.Interfaces;
 using Proyecto.AutoCareManager.DOMAIN.Infrastructure.Repositories;
-=======
-using Proyecto.AutoCareManager.DOMAIN.Core.Entities;
-using Proyecto.AutoCareManager.DOMAIN.Core.Interfaces;
->>>>>>> 8229652052ff8ae0b330b3b9f6efdeb93f60b8d0
-=======
-using Proyecto.AutoCareManager.DOMAIN.Core.Entities;
-using Proyecto.AutoCareManager.DOMAIN.Core.Interfaces;
->>>>>>> 8229652052ff8ae0b330b3b9f6efdeb93f60b8d0
 
 namespace Proyecto.AutoCareManager.API.Controllers
 {
@@ -28,8 +18,6 @@ namespace Proyecto.AutoCareManager.API.Controllers
             _empleadoRepository = empleadoRepository;
         }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
         //[HttpGet("listar empleados")]
         //public async Task<IActionResult> getall()
         //{
@@ -96,10 +84,10 @@ namespace Proyecto.AutoCareManager.API.Controllers
         {
             try
             {
-                var result = await _empleadoRepository.Insert(empleadoDTO);
+                var result = await _empleadoRepository.InsertDTO(empleadoDTO);
 
                 if (result)
-                    return Ok("Empleado registrado exitosamente.");
+                    return Ok(result);
                 else
                     return BadRequest("No es posible registrar el empleado.");
             }
@@ -109,84 +97,59 @@ namespace Proyecto.AutoCareManager.API.Controllers
             }
         }
 
+        //[HttpPut("Actualizar empleado por id/{id}")]
+        //public async Task<IActionResult> UpdateByDTO(int id, [FromBody] EmpleadoActualizarDTO empleadoActualizarDTO)
+        //{
+        //    var result = await _empleadoRepository.UpdateByIdDTO(new EmpleadoActualizarDTO
+        //    {
+        //        CodEmpleado = id,
+        //        Nombres = empleadoActualizarDTO.Nombres,
+        //        Apellidos = empleadoActualizarDTO.Apellidos,
+        //        NumIdent = empleadoActualizarDTO.NumIdent,
+        //        Cargo = empleadoActualizarDTO.Cargo,
+        //        Estado = empleadoActualizarDTO.Estado,
+        //        CodTaller = empleadoActualizarDTO.CodTaller,
+        //        UserCode = empleadoActualizarDTO.UserCode
+        //    });
+
+        //    if (!result)
+        //    {
+        //        return BadRequest("El empleado no existe o no tiene cambios que actualizar en los registros");
+        //    }
+
+        //    return Ok(result);
+        //}
+
         [HttpPut("Actualizar empleado por id/{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] EmpleadoActualizarDTO empleadoActualizarDTO)
+        public async Task<IActionResult> UpdateByIdDTO(int id, [FromBody] EmpleadoActualizarDTO empleadoActualizarDTO)
         {
-            var result = await _empleadoRepository.Update(new EmpleadoActualizarDTO
+            try
             {
-                CodEmpleado = id,
-                Nombres = empleadoActualizarDTO.Nombres,
-                Apellidos = empleadoActualizarDTO.Apellidos,
-                NumIdent = empleadoActualizarDTO.NumIdent,
-                Cargo = empleadoActualizarDTO.Cargo,
-                Estado = empleadoActualizarDTO.Estado,
-                CodTaller = empleadoActualizarDTO.CodTaller,
-                UserCode = empleadoActualizarDTO.UserCode
-            });
+                var result = await _empleadoRepository.UpdateByIdDTO(id, empleadoActualizarDTO);
 
-            if (!result)
-            {
-                return BadRequest("El empleado no existe o no tiene cambios que actualizar en los registros");
+                if (!result)
+                {
+                    return BadRequest("El empleado no existe o no tiene cambios que actualizar en los registros");
+                }
+
+                return Ok(result);
             }
-
-            return Ok(result);
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                return StatusCode(500, "Error interno del servidor");
+            }
         }
 
         [HttpDelete("Eliminar empleado por id/{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteById(int id)
         {
-            var result = await _empleadoRepository.Delete(id);
+            var result = await _empleadoRepository.DeleteById(id);
             if (!result)
                 return BadRequest("No es posible eliminar el empleado");
             else
                 return Ok(result);
         }
-=======
-=======
->>>>>>> 8229652052ff8ae0b330b3b9f6efdeb93f60b8d0
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            var empleados = await _empleadoRepository.GetEmpleados();
-            return Ok(empleados);
-        }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(int CodEmpleado)
-        {
-            var user = await _empleadoRepository.GetEmpleados(CodEmpleado);
-            return Ok(user);
-        }
-
-        [HttpPost]
-
-        public async Task<IActionResult> Insert([FromBody] TbEmpleado empleado)
-        {
-            var result = await _empleadoRepository.Insert(empleado);
-            return Ok(result);
-        }
-
-        [HttpPut]
-        public async Task<IActionResult> Update(int CodEmpleado, [FromBody] TbEmpleado empleado)
-        {
-            if (CodEmpleado != empleado.CodEmpleado)
-                return BadRequest();
-
-            var result = await _empleadoRepository.Update(empleado);
-            return Ok(result);
-        }
-
-        [HttpDelete("{CodEmpleado}")]
-
-        public async Task<IActionResult> Delete(int CodEmpleado)
-        {
-            var result = await _empleadoRepository.Delete(CodEmpleado);
-            return Ok(result);
-        }
-
-<<<<<<< HEAD
->>>>>>> 8229652052ff8ae0b330b3b9f6efdeb93f60b8d0
-=======
->>>>>>> 8229652052ff8ae0b330b3b9f6efdeb93f60b8d0
     }
 }
