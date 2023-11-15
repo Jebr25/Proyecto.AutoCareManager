@@ -63,4 +63,23 @@ namespace Proyecto.AutoCareManager.DOMAIN.Core.DTO
 
         public string Password { get; set; } = null!;
     }
+
+    public class UsuarioActualizarDTO
+    {
+        public int UserCode { get; set; }
+
+        public string Email { get; set; } = null!;
+
+        public string Password { get; set; } = null!;
+
+        public string FirmaUsuario { get; set; } = null!;
+
+        public string Nombres { get; set; } = null!;
+
+        public string Apellidos { get; set; } = null!;
+
+        public string TipoUsuario { get; set; } = null!;
+
+    }
+
 }

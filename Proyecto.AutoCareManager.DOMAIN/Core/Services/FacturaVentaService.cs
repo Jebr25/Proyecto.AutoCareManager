@@ -1,6 +1,7 @@
 ﻿
 // FacturaVentaService.cs
 using Proyecto.AutoCareManager.DOMAIN.Core.DTO;
+using Proyecto.AutoCareManager.DOMAIN.Core.Entities;
 using Proyecto.AutoCareManager.DOMAIN.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,49 @@ namespace Proyecto.AutoCareManager.DOMAIN.Core.Services
 
         public async Task<bool> CreateFactura(CrearFacturaVentaDTO facturaVentaDTO)
         {
-            // Aquí implementarías la lógica para crear una factura
-            // Por ejemplo, mapear el DTO a la entidad TbFactVentaCab y llamar a _facturaVentaRepository.InsertFactura
+            //try
+            //{
+            //    // Mapear el DTO a la entidad TbFactVentaCab
+            //    var facturaVentaCab = new TbFactVentaCab
+            //    {
+            //        CodSn = facturaVentaDTO.CodSn,
+            //        FecDocumento = facturaVentaDTO.FecDocumento,
+            //        FecVencimiento = facturaVentaDTO.FecVencimiento,
+            //        ProxFecMant = facturaVentaDTO.ProxFecMant,
+            //        CondicionPago = facturaVentaDTO.CondicionPago,
+            //        Moneda = facturaVentaDTO.Moneda,
+            //        NumSerieFiscal = facturaVentaDTO.NumSerieFiscal,
+            //        NumCorrelativo = facturaVentaDTO.NumCorrelativo,
+            //        Comentarios = facturaVentaDTO.Comentarios,
+            //        DocTotal = facturaVentaDTO.DocTotal,
+            //        CodEmpleado = facturaVentaDTO.CodEmpleado,
+            //        ActId = facturaVentaDTO.ActId,
+
+            //        Detalles = facturaVentaDTO.Detalles.Select(detalleDTO => new TbFactVentaDet
+            //        {
+            //            NumLinea = detalleDTO.NumLinea,
+            //            CodArticulo = detalleDTO.CodArticulo,
+            //            Cantidad = detalleDTO.Cantidad,
+            //            Precio = detalleDTO.Precio,
+            //            Subtotal = detalleDTO.Subtotal
+            //        }).ToList()
+            //    };
+
+            //    // Llamar al método InsertFactura del repositorio
+            //    bool facturaInsertada = await _facturaVentaRepository.InsertFactura(facturaVentaCab);
+
+            //    return facturaInsertada;
+
+            //}
+
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //    return false;
+            //}
+
             throw new NotImplementedException();
+
         }
 
         public async Task<bool> UpdateFactura(int id, ActualizarFacturaVentaDTO facturaVentaDTO)

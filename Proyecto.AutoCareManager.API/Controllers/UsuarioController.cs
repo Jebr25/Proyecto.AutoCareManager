@@ -22,11 +22,26 @@ namespace Proyecto.AutoCareManager.API.Controllers
             _usuarioRepository = usuarioRepository; 
         }
 
+        //[HttpGet("Listar usuarios")]
+        //public async Task<IActionResult> GetAll()
+        //{
+        //    var categories = await _usuarioRepository.GetAll();
+        //    return Ok(categories);
+        //}
+
         [HttpGet("Listar usuarios")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllDTO()
         {
-            var categories = await _usuarioRepository.GetAll();
-            return Ok(categories);
+            try
+            {
+                var usuariosDTO = await _usuarioRepository.GetAllDTO();
+                return Ok(usuariosDTO);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                return StatusCode(500, "Error interno del servidor");
+            }
         }
 
         [HttpPost("Sign Up")]
@@ -58,39 +73,103 @@ namespace Proyecto.AutoCareManager.API.Controllers
             }
         }
 
+        //[HttpPut("Actualizar usuario por id/{id}")]
+        //public async Task<IActionResult> UpdateById(int id, [FromBody] TbUsuario usuario)
+        //{
+        //    var result = await _usuarioRepository.UpdateById(new TbUsuario
+        //    {
+        //        UserCode = id,
+        //        Email = usuario.Email,
+        //        Password = usuario.Password,
+        //        FirmaUsuario = usuario.FirmaUsuario,
+        //        Nombres = usuario.Nombres,
+        //        Apellidos = usuario.Apellidos, 
+        //        TipoUsuario = usuario.TipoUsuario
+        //    });
+
+        //    if (!result)
+        //    {
+        //        return BadRequest("El usuario no existe o no tiene cambios que actualizar en los registros");
+        //    }
+
+        //    return Ok(result);
+        //}
+
+        //[HttpPut("Actualizar usuario por id/{id}")]
+        //public async Task<IActionResult> UpdateByIdDTO(int id, [FromBody] UsuarioActualizarDTO usuarioActualizarDTO)
+        //{
+        //    var result = await _usuarioRepository.UpdateByIdDTO(new UsuarioActualizarDTO
+        //    {
+        //        UserCode = id,
+        //        Email = usuarioActualizarDTO.Email,
+        //        Password = usuarioActualizarDTO.Password,
+        //        FirmaUsuario = usuarioActualizarDTO.FirmaUsuario,
+        //        Nombres = usuarioActualizarDTO.Nombres,
+        //        Apellidos = usuarioActualizarDTO.Apellidos,
+        //        TipoUsuario = usuarioActualizarDTO.TipoUsuario
+        //    });
+
+        //    if (!result)
+        //    {
+        //        return BadRequest("El usuario no existe o no tiene cambios que actualizar en los registros");
+        //    }
+
+        //    return Ok(result);
+        //}
+
         [HttpPut("Actualizar usuario por id/{id}")]
-        public async Task<IActionResult> UpdateById(int id, [FromBody] TbUsuario usuario)
+        public async Task<IActionResult> UpdateByIdDTO(int id, [FromBody] UsuarioActualizarDTO usuarioActualizarDTO)
         {
-            var result = await _usuarioRepository.UpdateById(new TbUsuario
+            try
             {
-                UserCode = id,
-                Email = usuario.Email,
-                Password = usuario.Password,
-                FirmaUsuario = usuario.FirmaUsuario,
-                Nombres = usuario.Nombres,
-                Apellidos = usuario.Apellidos, 
-                TipoUsuario = usuario.TipoUsuario
-            });
+                var result = await _usuarioRepository.UpdateByIdDTO(id, usuarioActualizarDTO);
 
-            if (!result)
-            {
-                return BadRequest("El usuario no existe o no tiene cambios que actualizar en los registros");
+                if (!result)
+                {
+                    return BadRequest("El usuario no existe o no tiene cambios que actualizar en los registros");
+                }
+
+                return Ok(result);
             }
-
-            return Ok(result);
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                return StatusCode(500, "Error interno del servidor");
+            }
         }
 
+        //[HttpPut("Actualizar usuario por email/{email}")]
+        //public async Task<IActionResult> UpdateByEmail(string email, [FromBody] TbUsuario usuario)
+        //{
+        //    var result = await _usuarioRepository.UpdateByEmail(email, usuario);
+
+        //    if (!result)
+        //    {
+        //        return BadRequest("El usuario no existe o no tiene cambios que actualizar en los registros");
+        //    }
+
+        //    return Ok(result);
+        //}
+
         [HttpPut("Actualizar usuario por email/{email}")]
-        public async Task<IActionResult> UpdateByEmail(string email, [FromBody] TbUsuario usuario)
+        public async Task<IActionResult> UpdateByEmailDTO(string email, [FromBody] UsuarioActualizarDTO usuarioActualizarDTO)
         {
-            var result = await _usuarioRepository.UpdateByEmail(email, usuario);
-
-            if (!result)
+            try
             {
-                return BadRequest("El usuario no existe o no tiene cambios que actualizar en los registros");
-            }
+                var result = await _usuarioRepository.UpdateByEmailDTO(email, usuarioActualizarDTO);
 
-            return Ok(result);
+                if (!result)
+                {
+                    return BadRequest("El usuario no existe o no tiene cambios que actualizar en los registros");
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                return StatusCode(500, "Error interno del servidor");
+            }
         }
 
         [HttpDelete("Eliminar usuario por id/{id}")]

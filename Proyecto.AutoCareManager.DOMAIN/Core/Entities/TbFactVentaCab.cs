@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Proyecto.AutoCareManager.DOMAIN.Core.Entities;
 
@@ -36,4 +37,7 @@ public partial class TbFactVentaCab
     public virtual TbEmpleado CodEmpleadoNavigation { get; set; } = null!;
 
     public virtual TbSocioDeNegocio CodSnNavigation { get; set; } = null!;
+
+    // [NotMapped]
+    //public List<TbFactVentaDet> Detalles { get; set; }
 }

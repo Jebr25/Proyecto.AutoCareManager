@@ -21,15 +21,15 @@ namespace Proyecto.AutoCareManager.API.Controllers
         [HttpGet("Listar articulos")]
         public async Task<IActionResult> GetAll()
         {
-            var categories = await _articuloRepository.GetAll();
-            return Ok(categories);
+            var articulos = await _articuloRepository.GetAll();
+            return Ok(articulos);
         }
 
         [HttpGet("Obtener articulo por id/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var categories = await _articuloRepository.GetById(id);
-            return Ok(categories);
+            var articulos = await _articuloRepository.GetById(id);
+            return Ok(articulos);
         }
 
         [HttpPost("Registrar articulo")]

@@ -20,9 +20,29 @@ namespace Proyecto.AutoCareManager.DOMAIN.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
+        //------------------------Get All() SIN DTO-----------------------
         public async Task<IEnumerable<TbUsuario>> GetAll()
         {
             return await _dbContext.TbUsuario.ToListAsync();
+        }
+
+        //------------------------Get All() CON DTO-----------------------
+        public async Task<IEnumerable<UsuarioDTO>> GetAllDTO()
+        {
+            var usuarios = await _dbContext.TbUsuario.ToListAsync();
+
+            var usuariosDTO = usuarios.Select(e => new UsuarioDTO
+            {
+                UserCode = e.UserCode,
+                Email = e.Email,
+                Password = e.Password,
+                FirmaUsuario = e.FirmaUsuario,
+                Nombres = e.Nombres,
+                Apellidos = e.Apellidos,
+                TipoUsuario = e.TipoUsuario,
+            }).ToList();
+
+            return usuariosDTO;
         }
 
         public async Task<TbUsuario> SignIn(string email, string password)
@@ -42,6 +62,7 @@ namespace Proyecto.AutoCareManager.DOMAIN.Infrastructure.Repositories
             return await _dbContext.TbUsuario.Where(x => x.Email == email).AnyAsync();
         }
 
+        //------------------------Update By Id() SIN DTO-----------------------
         public async Task<bool> UpdateById(TbUsuario usuario)
         {
             var existingUsuario = await _dbContext.TbUsuario.FindAsync(usuario.UserCode);
@@ -87,6 +108,54 @@ namespace Proyecto.AutoCareManager.DOMAIN.Infrastructure.Repositories
             return rows > 0;
         }
 
+        //------------------------Update By Id() CON DTO-----------------------
+        public async Task<bool> UpdateByIdDTO(int id, UsuarioActualizarDTO usuarioActualizarDTO)
+        {
+            //var existingUsuario = await _dbContext.TbUsuario.FindAsync(usuarioActualizarDTO.UserCode);
+            var existingUsuario = await _dbContext.TbUsuario.FirstOrDefaultAsync(u => u.UserCode == id);
+
+            if (existingUsuario == null)
+            {
+                return false;
+            }
+
+            // Actualizar las propiedades desde el DTO solo si están presentes
+            if (usuarioActualizarDTO.Email != null)
+            {
+                existingUsuario.Email = usuarioActualizarDTO.Email;
+            }
+
+            if (usuarioActualizarDTO.Password != null)
+            {
+                existingUsuario.Password = usuarioActualizarDTO.Password;
+            }
+
+            if (usuarioActualizarDTO.FirmaUsuario != null)
+            {
+                existingUsuario.FirmaUsuario = usuarioActualizarDTO.FirmaUsuario;
+            }
+
+            if (usuarioActualizarDTO.Nombres != null)
+            {
+                existingUsuario.Nombres = usuarioActualizarDTO.Nombres;
+            }
+
+            if (usuarioActualizarDTO.Apellidos != null)
+            {
+                existingUsuario.Apellidos = usuarioActualizarDTO.Apellidos;
+            }
+
+            if (usuarioActualizarDTO.TipoUsuario != null)
+            {
+                existingUsuario.TipoUsuario = usuarioActualizarDTO.TipoUsuario;
+            }
+
+            var rows = await _dbContext.SaveChangesAsync();
+
+            return rows > 0;
+        }
+
+        //------------------------Update By Email() SIN DTO-----------------------
         public async Task<bool> UpdateByEmail(string email, TbUsuario usuario)
         {
             var existingUsuario = await _dbContext.TbUsuario.FirstOrDefaultAsync(u => u.Email == email);
@@ -120,6 +189,47 @@ namespace Proyecto.AutoCareManager.DOMAIN.Infrastructure.Repositories
             if (usuario.TipoUsuario != null)
             {
                 existingUsuario.TipoUsuario = usuario.TipoUsuario;
+            }
+
+            var rows = await _dbContext.SaveChangesAsync();
+
+            return rows > 0;
+        }
+
+        //------------------------Update By Email() CON DTO-----------------------
+        public async Task<bool> UpdateByEmailDTO(string email, UsuarioActualizarDTO usuarioActualizarDTO)
+        {
+            var existingUsuario = await _dbContext.TbUsuario.FirstOrDefaultAsync(u => u.Email == email);
+
+            if (existingUsuario == null)
+            {
+                return false;
+            }
+
+            // Actualizar las propiedades desde el DTO solo si están presentes
+            if (usuarioActualizarDTO.Password != null)
+            {
+                existingUsuario.Password = usuarioActualizarDTO.Password;
+            }
+
+            if (usuarioActualizarDTO.FirmaUsuario != null)
+            {
+                existingUsuario.FirmaUsuario = usuarioActualizarDTO.FirmaUsuario;
+            }
+
+            if (usuarioActualizarDTO.Nombres != null)
+            {
+                existingUsuario.Nombres = usuarioActualizarDTO.Nombres;
+            }
+
+            if (usuarioActualizarDTO.Apellidos != null)
+            {
+                existingUsuario.Apellidos = usuarioActualizarDTO.Apellidos;
+            }
+
+            if (usuarioActualizarDTO.TipoUsuario != null)
+            {
+                existingUsuario.TipoUsuario = usuarioActualizarDTO.TipoUsuario;
             }
 
             var rows = await _dbContext.SaveChangesAsync();

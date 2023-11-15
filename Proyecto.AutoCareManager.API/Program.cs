@@ -21,8 +21,8 @@ builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddTransient<IUsuarioService, UsuarioService>();
 
 // Agregar Interfaz de FacturaVenta
-builder.Services.AddScoped<IFacturaVentaRepository, FacturaVentaRepository>();
-builder.Services.AddScoped<IFacturaVentaService, FacturaVentaService>();
+//builder.Services.AddScoped<IFacturaVentaRepository, FacturaVentaRepository>();
+//builder.Services.AddScoped<IFacturaVentaService, FacturaVentaService>();
 
 // Agregar Interfaz de Vehiculo
 builder.Services.AddScoped<IVehiculoRepository, VehiculoRepository>();
@@ -31,6 +31,7 @@ builder.Services.AddScoped<IVehiculoService, VehiculoService>();
 // Agregar Interfaz de Taller
 
 // Agregar Interfaz de Empleado
+builder.Services.AddTransient<IEmpleadoRepository, EmpleadoRepository>();
 
 //-------------------------------------------------------------------------------------//
 
