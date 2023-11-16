@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[tb_socio_de_negocio] (
     [CodSN]           INT            IDENTITY (1, 1) NOT NULL,
     [RazonSocial]     NVARCHAR (100) NOT NULL,
-    [NumIdent]        NVARCHAR (32)  NOT NULL,
+    [NumIdent]        INT  NOT NULL,
     [PersonaContacto] NVARCHAR (100) NULL,
     [Telefono]        NVARCHAR (32)  NULL,
     [Email]           NVARCHAR (100) NOT NULL,

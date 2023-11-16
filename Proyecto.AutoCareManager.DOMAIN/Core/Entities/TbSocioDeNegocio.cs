@@ -8,8 +8,8 @@ public partial class TbSocioDeNegocio
     public int CodSn { get; set; }
 
     public string RazonSocial { get; set; } = null!;
-
-    public string NumIdent { get; set; } = null!;
+    
+    public int NumIdent { get; set; }
 
     public string? PersonaContacto { get; set; }
 
