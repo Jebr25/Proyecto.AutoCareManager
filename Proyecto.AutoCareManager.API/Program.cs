@@ -34,7 +34,6 @@ builder.Services.AddScoped<IVehiculoService, VehiculoService>();
 builder.Services.AddTransient<IEmpleadoRepository, EmpleadoRepository>();
 
 //-------------------------------------------------------------------------------------//
-
 builder.Services.AddControllers();
 builder.Services.AddCors(options =>
 {
